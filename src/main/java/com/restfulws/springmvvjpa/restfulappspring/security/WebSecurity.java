@@ -64,12 +64,21 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/users")
-                .permitAll().anyRequest().authenticated() .and().addFilter( new AuthenticationFilter( authenticationManager()));
+                .permitAll().anyRequest().authenticated() .and().addFilter( getAuthenticationFilter() )
+                .addFilter( new AuthorizationFilter(authenticationManager()));
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         super.configure(auth);
+    }
+    public AuthenticationFilter getAuthenticationFilter()  throws Exception {
+
+        final AuthenticationFilter filter =  new AuthenticationFilter(authenticationManager());
+
+        filter.setFilterProcessesUrl("/users/login");
+
+        return filter;
     }
 
 }
