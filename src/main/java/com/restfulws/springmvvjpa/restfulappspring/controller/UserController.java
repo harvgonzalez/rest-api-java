@@ -6,6 +6,7 @@ import com.restfulws.springmvvjpa.restfulappspring.service.UserService;
 import com.restfulws.springmvvjpa.restfulappspring.shared.UserDto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,7 +16,10 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping(path = "/{id}")
+    @GetMapping(path = "/{id}",
+            produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}
+
+    )
     private UserRest getUser(@PathVariable String id){
         UserRest returnValue = new UserRest();
 
@@ -26,7 +30,9 @@ public class UserController {
         return returnValue;
     }
 
-    @PostMapping
+    @PostMapping(
+            consumes = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE},
+            produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     private UserRest createUser(@RequestBody UserDetailsRequestModel userDetails){
 
         UserRest returnValue = new UserRest();
