@@ -1,5 +1,6 @@
 package com.restfulws.springmvvjpa.restfulappspring;
 
+import com.restfulws.springmvvjpa.restfulappspring.security.AppProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +21,12 @@ public class RestfulAppSpringApplication {
 	@Bean
 	SpringApplicationContext springApplicationContext(){
 		return new SpringApplicationContext();
+	}
+
+	@Bean(name="AppProperties")
+	public AppProperties getAppProperties()
+	{
+		return new AppProperties();
 	}
 
 }
